@@ -27,7 +27,11 @@ Alexander Chen
 ## Acknowledgments
 
 Tutorial on boto3: https://hands-on.cloud/boto3-s3-tutorial/
+
 Typescript react: https://handsonreact.com/docs/labs/react-tutorial-typescript
+
 Some react docs: https://www.typescriptlang.org/docs/handbook/react.html
+
 Flask docs: https://flask.palletsprojects.com/en/2.2.x/
+
 AWS S3 setup: https://docs.aws.amazon.com/quickstarts/latest/s3backup/step-1-create-bucket.html
