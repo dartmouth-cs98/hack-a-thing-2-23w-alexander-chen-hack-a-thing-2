@@ -24,6 +24,10 @@ I learned how to use and set up Flask, S3, and React. I also got some extra prac
 
 Alexander Chen
 
+How does this hack-a-thing inspire you or relate to your possible project ideas?
+
+It is the basic infrastructure for our video processing project ideas. This is the fundamental underlying first step for setting everything up to work properly. It also let me play with potential technologies that we may end up using.
+
 ## Acknowledgments
 
 Tutorial on boto3: https://hands-on.cloud/boto3-s3-tutorial/
