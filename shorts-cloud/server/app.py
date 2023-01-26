@@ -2,8 +2,8 @@ import boto3
 from flask import Flask, redirect, url_for, request, jsonify
 import os
 from werkzeug.utils import secure_filename
-import json
 from secret import S3_BUCKET, S3_KEY, S3_SECRET
+import json
 
 app = Flask(__name__)
 
