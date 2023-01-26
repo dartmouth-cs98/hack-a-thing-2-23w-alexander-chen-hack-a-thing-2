@@ -1,24 +1,15 @@
-import botocore
 import boto3
 from flask import Flask, redirect, url_for, request, jsonify
 import os
 from werkzeug.utils import secure_filename
-from flask_cors import CORS, cross_origin
 import json
-
-UPLOAD_FOLDER = '/Users/alex/sources/hack-a-thing-2-23w-alexander-chen-hack-a-thing-2/tmp/'
+from secret import S3_BUCKET, S3_KEY, S3_SECRET
 
 app = Flask(__name__)
 
-app.config['S3_BUCKET'] = "S3_BUCKET_NAME"
-app.config['S3_KEY'] = "AWS_ACCESS_KEY"
-app.config['S3_SECRET'] = "AWS_ACCESS_SECRET"
-app.config['S3_LOCATION'] = 'http://{}.s3.amazonaws.com/'.format(
-    app.config['S3_BUCKET'])
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-# cors = CORS(app)
-# app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['S3_BUCKET'] = S3_BUCKET
+app.config['S3_KEY'] = S3_KEY
+app.config['S3_SECRET'] = S3_SECRET
 
 s3 = boto3.client(
     "s3",
@@ -26,9 +17,9 @@ s3 = boto3.client(
     aws_secret_access_key=app.config['S3_SECRET']
 )
 
-
 # to test:
 # curl -X POST -F 'file=@/Users/alex/sources/hack-a-thing-2-23w-alexander-chen-hack-a-thing-2/server/files/example.mp4' http://127.0.0.1:5000
+
 
 @app.route("/", methods=["POST"])
 def upload_file():
@@ -44,5 +35,10 @@ def upload_file():
         return json.dumps(err)
 
     filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+    # this code will save the file to the os
+    # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+    s3.upload_fileobj(file.stream, app.config['S3_BUCKET'], filename)
+
     return json.dumps(ok)
